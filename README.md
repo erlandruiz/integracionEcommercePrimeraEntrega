@@ -3,7 +3,7 @@ Entrega de websocket y handlebars del curso de Backend CorderHouse
 
 
 # http://localhost:8080/  
-Para ingresar al home y ver todos los productos.
+Para ingresar al home y ver todos los productos y chat 
 
 
 # http://localhost:8080/realtimeproducts

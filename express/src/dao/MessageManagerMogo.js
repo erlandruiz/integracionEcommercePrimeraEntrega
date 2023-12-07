@@ -46,17 +46,6 @@ export class MessageManagerMongo {
   }
 
 
-//   async updateProductMongo(id, objeto) {
-
-//     return await productsModelo.updateOne({deleted:false, _id:id}, objeto)
-
-    
-   
-//   }
-
-//   async delProductMongo(id) {
-//     return await productsModelo.updateOne({deleted:false, _id:id},{$set:{deleted:true}})
-//   }
 
 
 

@@ -98,24 +98,6 @@ router.post('/',async (req,res)=>{//Post agrega datos
       return res.status(500).json({error:`error inesperado en el servidor -Intente mas tarde`, detalle: error.message});
     }
 
-  //  let resultado =  await productManagerMongo.addProductMongo(title, description,price, thumbnail, code, stock, category, status)
- 
-  
-
-  // if (!resultado) {
-  //   res.setHeader('Content-Type','application/json');
-  //   return res.status(400).json({error:`Se ha producido un error al agregar el producto`});
-  // } else {
-  // //   //** IO */
-  
-  // //    io.emit("nuevoProducto", resultado) //Damos inicio al IO
-    
-  // //  //** IO */
-  //  res.setHeader("Content-Type", "application/json");
-  //  return res.status(200).json({message:'Producto Agregado', resultado });
-    
-  // }
-
   
   
 

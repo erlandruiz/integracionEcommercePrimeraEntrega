@@ -35,22 +35,7 @@ export class ProductManagerMongo {
     status = true
   ) {
 
-    // let existeCode = false
 
-    // try {
-    //     existeCode = await productsModelo.findOne({deleted:false, code:code})
-    // } catch (error) {
-    //         // res.setHeader('Content-Type','application/json');
-    //         // return res.status(500).json({error:`error inesperado en el servidor -Intente mas tarde`, detalle: error.message});
-
-    //         console.log(`error inesperado en el servidor -Intente mas tarde`, error.message)
-    //         return error.message
-    // }
-
-    // if (existeCode) {
-    //     console.log(`El usuario con code = ${code} ya existe`);
-    //     return ;
-    // }
 
 
     try {
@@ -67,14 +52,10 @@ export class ProductManagerMongo {
           };
 
        let nuevoProducto = await productsModelo.create(producto)
-                // res.setHeader('Content-Type','application/json');
-                // return res.status(200).json({payload: nuevoProducto});
-
+               
                 return nuevoProducto
     } catch (error) {
-                // res.setHeader('Content-Type','application/json');
-                // return res.status(500).json({error:`error inesperado en el servidor -Intente mas tarde`, detalle: error.message});
-
+              
                 console.log(`error inesperado en el servidor -Intente mas tarde`, error.message)
                 return error.mensaje
     }
