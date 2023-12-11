@@ -35,8 +35,7 @@ export class ProductManagerMongo {
     status = true
   ) {
 
-
-
+   
 
     try {
         let producto = {
@@ -52,10 +51,14 @@ export class ProductManagerMongo {
           };
 
        let nuevoProducto = await productsModelo.create(producto)
-               
+                // res.setHeader('Content-Type','application/json');
+                // return res.status(200).json({payload: nuevoProducto});
+
                 return nuevoProducto
     } catch (error) {
-              
+                // res.setHeader('Content-Type','application/json');
+                // return res.status(500).json({error:`error inesperado en el servidor -Intente mas tarde`, detalle: error.message});
+
                 console.log(`error inesperado en el servidor -Intente mas tarde`, error.message)
                 return error.mensaje
     }

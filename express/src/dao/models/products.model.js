@@ -26,7 +26,7 @@ const productsEsquema = new mongoose.Schema(
   {
     timestamps: true, //Deja la marca de tiempo cuando  grabas el dato, FECHA DE  CREACION , FECHA DE MODIFICACION
     //collection: 'BigUsers' para trabajar datos en plural
-    stric: true, //sirve para agregar propiedades que no estan definidas dentro el esquema , cuando esta en false se pueden agregar
+    strict: true, //sirve para agregar propiedades que no estan definidas dentro el esquema , cuando esta en false se pueden agregar
   }
 );
 

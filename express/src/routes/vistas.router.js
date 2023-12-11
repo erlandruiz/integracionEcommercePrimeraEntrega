@@ -52,7 +52,7 @@ router.get('/realtimeproducts',async (req,res)=>{
 router.get('/chat',  (req,res)=>{
     try {
          
-       
+      
         res.status(200).render('chat', {titulo:"Chat", estilo:"styles"})
 
     } catch (error) {

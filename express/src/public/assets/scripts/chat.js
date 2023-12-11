@@ -13,7 +13,18 @@ Swal.fire({
     input:"text",
     text:"Ingrese su nickname",
     inputValidator: (value)=>{
-        return !value && "Debe ingresar un nombre...!!!"
+        // return !value && "Debe ingresar un nombre...!!!"
+        if (!value) {
+            return "Debe ingresar un email...!!!";
+        } else {
+            // Verificar si el valor tiene el formato de un email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                return "Ingrese un email válido...!!!";
+            }
+        }
+
+        
     },
     allowOutsideClick:false
 }).then(resultado=>{
@@ -43,9 +54,11 @@ Swal.fire({
     })
 
     
-    socket.on('nuevoMensaje', datos=>{
+    socket.on('nuevoMensaje',  datos=>{
         let parrafo = document.createElement('p')
         parrafo.innerHTML= `<strong>${datos.emisor} </strong> dice:<i>${datos.mensaje}</i>`
+       
+    
         parrafo.classList.add('mensaje')
         let br = document.createElement('br')
         divMensajes.append(parrafo, br);

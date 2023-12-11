@@ -98,6 +98,8 @@ router.post('/',async (req,res)=>{//Post agrega datos
       return res.status(500).json({error:`error inesperado en el servidor -Intente mas tarde`, detalle: error.message});
     }
 
+
+
   
   
 

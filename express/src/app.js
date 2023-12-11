@@ -17,6 +17,7 @@ import { Server } from "socket.io"; //Importando socket io para trabajar con web
 import mongoose from 'mongoose'; //Importamos Mongoose 
 import { router as routerProductsMongo  } from "./routes/products.router.mongo.js"; // Para trabajar con mongo atlas products
 import { router as routerCartsMongo} from "./routes/carts.router.mongo.js"; // Para trabajar con mongo atlas carts
+import { messagesModelo } from "./dao/models/message.models.js";
 
 
 //************************ //
@@ -34,12 +35,7 @@ app.use(urlencoded({ extended: true })); // Colocamos la siguiente linea de coma
 let archivoViews = join(__dirname, "./views");
 
 
-// app.engine('handlebars', engine({ //Colcamos esta instruccion para no tener problemas con los elementos Hidratados que vienen de mongoose
-//     runtimeOptions: {
-//         allowProtoPropertiesByDefault: true,
-//         allowProtoMethodsByDefault: true,
-//     },
-// }));
+
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", archivoViews);
@@ -68,6 +64,8 @@ const server = app.listen(PORT, () => {
 let usuarios = [];
 let mensajes = []; 
 
+
+
 export const io = new Server(server); // Da inicio a socket.io BACKEND
 
 io.on("connection", (socket) => {
@@ -75,16 +73,36 @@ io.on("connection", (socket) => {
 
 
  //CHAT
- socket.on('id', nombre=>{ // recibe con on el socket id
+ socket.on('id', async nombre=>{ // recibe con on el socket id
   usuarios.push({nombre, id:socket.id})
+
+
+  
+
+  
   socket.broadcast.emit('nuevoUsuario', nombre) //emite a todos menos al que lo envia
   socket.emit("hello", mensajes)
 });
 
-socket.on('mensaje', datos=>{
+socket.on('mensaje',  async datos=>{
   mensajes.push(datos);
   io.emit('nuevoMensaje', datos)
-})
+
+
+
+  let nuevoMensaje = {
+    mensaje: datos.mensaje
+  }
+// para buscar y si existe el usuario  solo agrega el mensaje al array de mensajes
+  await messagesModelo.findOneAndUpdate(
+    {usuario: datos.emisor},
+    {
+      $push: { mensajes: nuevoMensaje}
+    },
+    { upsert: true, new: true },
+  
+  );
+
 
 socket.on("disconnect", ()=>{
   let usuario = usuarios.find(u=>u.id === socket.id)
@@ -96,8 +114,8 @@ socket.on("disconnect", ()=>{
 
 });
 
-
-//MOGOSOOSE
+})
+//MOGOSOOSE genera conexion a la base datos ATLAS
 
 try {
   await mongoose.connect('mongodb+srv://erland:41296348@atlascluster.ocwqyul.mongodb.net/?retryWrites=true&w=majority', {dbName: 'ecommerce'})
